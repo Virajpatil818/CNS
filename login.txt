@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div>
+        <h1>Login</h1>
+        <form id="login">
+            <input id="Email" type="email" placeholder="Email" required>
+            <input id="Pass" type="password" placeholder="Password" required>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+
+document.getElementById("login").addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("Email").value;
+    const password = document.getElementById("Pass").value; // Corrected "Password" to "Pass"
+
+    function customHash(password) {
+        let hash = 0;
+        for (let i = 0; i < password.length; i++) {
+            const char = password.charCodeAt(i);
+            hash = (hash << 5) - hash + char;
+            hash = hash & hash; // Convert to 32-bit integer
+        }
+        return hash.toString(16);
+    }
+
+    const passHash = customHash(password);
+    console.log(passHash);
+});
